@@ -1,2 +1,88 @@
 ---
-# tasks file for munki
+- name: Create group
+  group:
+    name: '{{ munki_group }}'
+    state: present
+    system: yes
+
+- name: Add current user to group
+  user:
+    name: '{{ ansible_user }}'
+    groups: '{{ munki_group }}'
+    append: yes
+
+- name: Create user
+  user:
+    name: '{{ munki_user }}'
+    state: present
+    system: yes
+    comment: Munki system user
+    home: '{{ munki_repo }}'
+    create_home: no
+    group: '{{ munki_group }}'
+
+- name: Create repository
+  file:
+    name: '{{ munki_repo }}'
+    state: directory
+    owner: '{{ munki_user }}'
+    group: '{{ munki_group }}'
+    mode: 02774
+
+- name: Create repository directories
+  file:
+    name: '{{ munki_repo }}/{{ item }}'
+    state: directory
+    owner: '{{ munki_user }}'
+    group: '{{ munki_group }}'
+    mode: 02774
+  with_items: '{{ munki_repo_directories }}'
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  changed_when: no
+
+- name: Install packages
+  apt:
+    name: '{{ munki_packages }}'
+    state: latest
+
+- name: Configure nginx
+  template:
+    src: default.j2
+    dest: '{{ munki_nginx_config }}'
+    backup: yes
+  notify: Restart nginx
+
+- name: Add nginx user to group
+  user:
+    name: '{{ munki_nginx_user }}'
+    groups: '{{ munki_group }}'
+    append: yes
+  notify: Restart nginx
+
+- name: Start nginx
+  service:
+    name: '{{ munki_nginx_service }}'
+    state: started
+    enabled: yes
+
+- name: Configure samba
+  template:
+    src: smb.conf.j2
+    dest: '{{ munki_samba_config }}'
+    backup: yes
+  notify: Restart samba
+
+- name: Start samba
+  service:
+    name: '{{ munki_samba_service }}'
+    state: started
+    enabled: yes
+
+- name: Set samba password
+  shell: |
+    ( echo '{{ munki_samba_password }}'
+      echo '{{ munki_samba_password }}') | sudo smbpasswd -a -s munki

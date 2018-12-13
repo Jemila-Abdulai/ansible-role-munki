@@ -1,38 +1,36 @@
-Role Name
-=========
+# Munki
 
-A brief description of the role goes here.
+Ansible Role to installs a [Munki](https://www.munki.org) server on Ubuntu.
+This just sets up an empty munki repo on your host and makes it available over
+HTTP (nginx) and SMB (samba).
 
-Requirements
-------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## Requirements
 
-Role Variables
---------------
+The server should run a recent version of Ubuntu Linux.
+I've tested with version 18.04 (bionic beaver).
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
-Dependencies
-------------
+## Role Variables
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+You might want to change `munki_samba_password` (default: "munki").
 
-Example Playbook
-----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Dependencies
 
-    - hosts: servers
+None :-)
+
+
+## Example Playbook
+
+    ---
+    - name: Install Munki Server
+      hosts: munki
       roles:
-         - { role: username.rolename, x: 42 }
+        - role: munki
+          munki_samba_password: a575bdacc5a6f2a77ccee76b9dad45bf
 
-License
--------
 
-BSD
+## License
 
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This Ansible role is released under the [MIT License](LICENSE.txt).

@@ -1,2 +1,10 @@
 ---
-# handlers file for munki
+- name: Restart nginx
+  service:
+    name: '{{ munki_nginx_service }}'
+    state: restarted
+
+- name: Restart samba
+  service:
+    name: '{{ munki_samba_service }}'
+    state: restarted
