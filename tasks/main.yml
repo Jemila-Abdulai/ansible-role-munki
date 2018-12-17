@@ -17,13 +17,13 @@
     state: present
     system: yes
     comment: Munki system user
-    home: '{{ munki_repo }}'
+    home: '{{ munki_repo }}'
     create_home: no
     group: '{{ munki_group }}'
 
 - name: Create repository
   file:
-    name: '{{ munki_repo }}'
+    name: '{{ munki_repo }}'
     state: directory
     owner: '{{ munki_user }}'
     group: '{{ munki_group }}'
@@ -52,7 +52,7 @@
 - name: Configure nginx
   template:
     src: default.j2
-    dest: '{{ munki_nginx_config }}'
+    dest: '{{ munki_nginx_config }}'
     backup: yes
   notify: Restart nginx
 
