@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/bjoernalbers/ansible-role-munki.svg?branch=master)](https://travis-ci.org/bjoernalbers/ansible-role-munki)
 
-Ansible Role to installs a [Munki](https://www.munki.org) server on Ubuntu.
+Ansible Role to install a [Munki](https://www.munki.org) server on Ubuntu.
 This just sets up an empty munki repo on your host and makes it available over
 HTTP (nginx) and SMB (samba).
 
