@@ -47,7 +47,7 @@
 - name: Install packages
   apt:
     name: '{{ munki_packages }}'
-    state: latest
+    state: present
 
 - name: Configure nginx
   template:
