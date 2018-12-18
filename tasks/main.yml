@@ -33,11 +33,15 @@
     update_cache: yes
     cache_valid_time: 3600
   changed_when: no
+  register: apt
+  until: apt is succeeded
 
 - name: Install packages
   apt:
     name: '{{ munki_packages }}'
     state: present
+  register: apt
+  until: apt is succeeded
 
 - name: Configure nginx
   template:
