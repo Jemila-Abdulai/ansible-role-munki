@@ -18,7 +18,6 @@ munki_packages:
 munki_url_path: /munki_repo
 
 munki_nginx_config: /etc/nginx/sites-available/default
-munki_nginx_user: www-data
 munki_nginx_service: nginx
 
 munki_samba_config: /etc/samba/smb.conf

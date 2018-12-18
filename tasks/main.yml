@@ -5,12 +5,6 @@
     state: present
     system: yes
 
-- name: Add current user to group
-  user:
-    name: '{{ ansible_user }}'
-    groups: '{{ munki_group }}'
-    append: yes
-
 - name: Create user
   user:
     name: '{{ munki_user }}'
@@ -25,9 +19,6 @@
   file:
     name: '{{ munki_repo }}'
     state: directory
-    owner: '{{ munki_user }}'
-    group: '{{ munki_group }}'
-    mode: 02774
 
 - name: Create repository directories
   file:
@@ -35,7 +26,6 @@
     state: directory
     owner: '{{ munki_user }}'
     group: '{{ munki_group }}'
-    mode: 02774
   with_items: '{{ munki_repo_directories }}'
 
 - name: Update apt cache
@@ -54,13 +44,6 @@
     src: default.j2
     dest: '{{ munki_nginx_config }}'
     backup: yes
-  notify: Restart nginx
-
-- name: Add nginx user to group
-  user:
-    name: '{{ munki_nginx_user }}'
-    groups: '{{ munki_group }}'
-    append: yes
   notify: Restart nginx
 
 - name: Start nginx
