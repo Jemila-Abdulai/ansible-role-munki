@@ -12,6 +12,11 @@ install:
 
 script:
   - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+  - ansible-playbook -i tests/inventory tests/test.yml
+  - sudo sh -c 'echo hello > /var/www/munki_repo/manifests/site_default'
+  - test "$(curl --silent http://localhost/munki_repo/manifests/site_default)" == 'hello'
+  - smbclient --user munki --command 'rm manifests\site_default' //localhost/munki_repo munki
+  - ansible-playbook -i tests/inventory tests/test.yml | tee /tmp/output.txt; grep -q 'changed=0.*failed=0' /tmp/output.txt
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
