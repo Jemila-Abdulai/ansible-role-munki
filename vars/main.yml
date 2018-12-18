@@ -13,6 +13,7 @@ munki_repo_directories:
 munki_packages:
   - nginx
   - samba
+  - smbclient
 
 # Do not append a slash on the url path!
 munki_url_path: /munki_repo

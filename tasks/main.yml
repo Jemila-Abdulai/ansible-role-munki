@@ -69,7 +69,21 @@
     state: started
     enabled: yes
 
+- name: Verfify samba password
+  command: >
+    smbclient
+    --user '{{ munki_user }}'
+    --command 'quit'
+    '//localhost/munki_repo'
+    '{{ munki_samba_password }}'
+  no_log: yes
+  ignore_errors: yes
+  changed_when: no
+  register: verify_samba_password
+
 - name: Set samba password
-  shell: |
-    ( echo '{{ munki_samba_password }}'
-      echo '{{ munki_samba_password }}') | sudo smbpasswd -a -s munki
+  shell: >
+    ( echo '{{ munki_samba_password }}'; echo '{{ munki_samba_password }}' ) |
+    smbpasswd -a -s '{{ munki_user }}'
+  no_log: yes
+  when: verify_samba_password is failed
