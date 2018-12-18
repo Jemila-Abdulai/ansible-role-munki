@@ -18,6 +18,8 @@ munki_packages:
 # Do not append a slash on the url path!
 munki_url_path: /munki_repo
 
+munki_share_name: munki_repo
+
 munki_nginx_config: /etc/nginx/sites-available/default
 munki_nginx_service: nginx
 
