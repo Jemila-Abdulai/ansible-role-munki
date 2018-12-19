@@ -28,6 +28,14 @@
     group: '{{ munki_group }}'
   with_items: '{{ munki_repo_directories }}'
 
+# This is required in order to install rsnapshot.
+- name: Enable universe repository
+  apt_repository:
+    repo: '{{ item }}'
+    state: present
+    update_cache: no
+  with_items: '{{ munki_apt_repositories }}'
+
 - name: Update apt cache
   apt:
     update_cache: yes
@@ -87,3 +95,25 @@
     smbpasswd -a -s '{{ munki_user }}'
   no_log: yes
   when: verify_samba_password is failed
+
+- name: Configure rsnapshot
+  template:
+    src: rsnapshot.conf.j2
+    dest: '{{ munki_rsnapshot_config }}'
+    backup: yes
+
+- name: Verify rsnapshot configuration
+  command: rsnapshot configtest
+  changed_when: no
+
+- name: Create rsnapshot cronjobs
+  cron:
+    name: '{{ item.name }}'
+    minute: '{{ item.minute | default("*") }}'
+    hour: '{{ item.hour | default("*") }}'
+    day: '{{ item.day | default("*")}}'
+    month: '{{ item.month | default("*") }}'
+    weekday: '{{ item.weekday | default("*") }}'
+    job: '{{ item.name }}'
+    state: present
+  with_items: '{{ munki_rsnapshot_cronjobs }}'

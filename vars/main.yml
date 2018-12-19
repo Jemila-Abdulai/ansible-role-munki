@@ -10,10 +10,16 @@ munki_repo_directories:
   - catalogs
   - manifests
 
+munki_apt_repositories:
+  - 'deb http://archive.ubuntu.com/ubuntu/ bionic universe'
+  - 'deb http://archive.ubuntu.com/ubuntu/ bionic-updates universe'
+  - 'deb http://security.ubuntu.com/ubuntu/ bionic-security universe'
+
 munki_packages:
   - nginx
   - samba
   - smbclient
+  - rsnapshot
 
 # Do not append a slash on the url path!
 munki_url_path: /munki_repo
@@ -25,3 +31,17 @@ munki_nginx_service: nginx
 
 munki_samba_config: /etc/samba/smb.conf
 munki_samba_service: smbd
+
+munki_rsnapshot_config: /etc/rsnapshot.conf
+munki_rsnapshot_cronjobs:
+  - name: rsnapshot daily
+    minute: 0
+    hour: 0
+  - name: rsnapshot weekly
+    minute: 0
+    hour: 1
+    weekday: 0
+  - name: rsnapshot monthly
+    minute: 0
+    hour: 2
+    day: 1
