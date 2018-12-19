@@ -121,7 +121,7 @@
     name: '{{ item.name }}'
     minute: '{{ item.minute | default("*") }}'
     hour: '{{ item.hour | default("*") }}'
-    day: '{{ item.day | default("*")}}'
+    day: '{{ item.day | default("*") }}'
     month: '{{ item.month | default("*") }}'
     weekday: '{{ item.weekday | default("*") }}'
     job: '{{ item.name }}'
