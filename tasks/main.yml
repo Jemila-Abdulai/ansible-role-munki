@@ -19,6 +19,8 @@
   file:
     name: '{{ munki_repo }}'
     state: directory
+    owner: root
+    group: root
 
 - name: Create repository directories
   file:
