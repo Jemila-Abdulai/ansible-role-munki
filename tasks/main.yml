@@ -28,6 +28,14 @@
     group: '{{ munki_group }}'
   with_items: '{{ munki_repo_directories }}'
 
+- name: Copy .gitignore
+  copy:
+    src: .gitignore
+    dest: '{{ munki_repo }}'
+    owner: '{{ munki_user }}'
+    group: '{{ munki_group }}'
+    force: no
+
 # This is required in order to install rsnapshot.
 - name: Enable universe repository
   apt_repository:
