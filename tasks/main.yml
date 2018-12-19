@@ -74,7 +74,7 @@
     smbclient
     --user '{{ munki_user }}'
     --command 'quit'
-    '//localhost/munki_repo'
+    '//localhost/{{ munki_share_name }}'
     '{{ munki_samba_password }}'
   no_log: yes
   ignore_errors: yes
