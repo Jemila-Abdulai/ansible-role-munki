@@ -16,7 +16,7 @@ It also comes with automatic daily backups using `rsnapshot`.
 ## Requirements
 
 The server should run a recent version of Ubuntu Linux.
-I've tested with version 18.04 (bionic beaver).
+I've tested with Ubuntu 16.04 (Xenial Xerus) and 18.04 (Bionic Beaver).
 
 
 ## Role Variables
