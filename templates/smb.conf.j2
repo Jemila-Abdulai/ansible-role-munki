@@ -15,7 +15,7 @@ pam password change = yes
 map to guest = bad user
 usershare allow guests = yes
 
-[{{ munki_share_name }}]
+[{{ munki_samba_share_name }}]
 path = {{ munki_repo }}
 valid users = {{ munki_user }}
 writable = yes

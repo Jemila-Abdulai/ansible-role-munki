@@ -13,7 +13,7 @@ server {
 		try_files $uri $uri/ =404;
 	}
 
-	location {{ munki_url_path }} {
+	location {{ munki_nginx_url_path }} {
 		alias {{ munki_repo }};
 		autoindex off;
 	}

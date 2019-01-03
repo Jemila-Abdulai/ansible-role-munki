@@ -24,13 +24,11 @@ munki_packages:
   - rsnapshot
 
 # Do not append a slash on the url path!
-munki_url_path: /repo
-
-munki_share_name: repo
-
+munki_nginx_url_path: /repo
 munki_nginx_config: /etc/nginx/sites-available/default
 munki_nginx_service: nginx
 
+munki_samba_share_name: repo
 munki_samba_config: /etc/samba/smb.conf
 munki_samba_service: smbd
 # This parameter must be quoted or it will convert it into a decimal number
