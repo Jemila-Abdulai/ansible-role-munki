@@ -3,13 +3,8 @@
 [![Build Status](https://travis-ci.org/bjoernalbers/ansible-role-munki.svg?branch=master)](https://travis-ci.org/bjoernalbers/ansible-role-munki)
 
 Ansible Role to install a [Munki](https://www.munki.org) server on Ubuntu.
-This just sets up an empty munki repo on your host and makes it available over
-HTTP (nginx) and SMB (samba).
-If your server's hostname is "munki" then the munki repo will be here...
-
-- http://munki/munki_repo
-- smb://munki/munki_repo
-
+This creates an empty munki repository and makes it available via
+http://munki/repo and smb://munki/repo (if the server's hostname is "munki").
 It also comes with automatic daily backups using `rsnapshot`.
 
 
