@@ -10,6 +10,7 @@ munki_repo_directories:
   - catalogs
   - manifests
   - .git
+munki_repo_permissions: u+rwX,g+rX,o+rX
 
 munki_apt_repositories:
   - 'deb http://archive.ubuntu.com/ubuntu/ bionic universe'

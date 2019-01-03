@@ -21,6 +21,7 @@
     state: directory
     owner: root
     group: root
+    mode: '{{ munki_repo_permissions }}'
 
 - name: Create repository directories
   file:
@@ -28,6 +29,8 @@
     state: directory
     owner: '{{ munki_user }}'
     group: '{{ munki_group }}'
+    mode: '{{ munki_repo_permissions }}'
+    recurse: yes
   with_items: '{{ munki_repo_directories }}'
 
 - name: Copy .gitignore
