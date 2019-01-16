@@ -12,10 +12,12 @@ munki_repo_directories:
   - .git
 munki_repo_permissions: u+rwX,g+rX,o+rX
 
+# These are required to install rsnapshot from "universe".
 munki_apt_repositories:
-  - 'deb http://archive.ubuntu.com/ubuntu/ bionic universe'
-  - 'deb http://archive.ubuntu.com/ubuntu/ bionic-updates universe'
-  - 'deb http://security.ubuntu.com/ubuntu/ bionic-security universe'
+  - 'deb http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }} universe'
+  - 'deb http://archive.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-updates universe'
+  - 'deb http://security.ubuntu.com/ubuntu/ {{ ansible_distribution_release }}-security universe'
+munki_apt_cache_valid_time: 3600
 
 munki_packages:
   - nginx
